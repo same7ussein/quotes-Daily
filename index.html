@@ -10,6 +10,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&display=swap"
     rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <!-- bootstrap -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
   <link rel="stylesheet" href="css/all.min.css" />
   <link rel="stylesheet" href="css/bootstrap.min.css" />
   <link rel="stylesheet" href="css/style.css" />
@@ -17,7 +21,7 @@
 
 <body>
   <div class="container">
-    <h1 class="text-danger text-center mb-5 title">Daily Quotes</h1>
+    <h1 class="text-dark text-center mt-5 title">Daily Quotes</h1>
     <div class="row align-items-center">
       <div class="col-sm-12 mx-auto">
         <div class="quote text-center rounded-3">
@@ -26,13 +30,37 @@
             <p id="quote"></p>
             <p class="text-end text-danger" id="author"></p>
           </div>
-          <div class=" d-flex justify-content-between w-custom flex-sm-row flex-column">
-            <button id="previousButton" onclick="showPreviousQuote()" class="btn btn-outline-danger mb-2"><i
-                class="fa-solid fa-arrow-left"></i> Previous Quote</button>
-            <button id="tweetButton" onclick="tweet()" class="btn btn-outline-danger mb-2">Twitter <i
+          <!-- <div class=" d-flex mx-auto flex-sm-row justify-content-center flex-wrap">
+            <div class="d-flex">
+
+              <button id="copyButton" class="btn btn-outline-danger mb-3 me-3"><i class="bi bi-copy"></i></button>
+              <button id="speechButton" class="btn btn-outline-danger mb-3 me-3"><i
+                  class="fa-solid fa-volume-high"></i></button>
+              <button id="tweetButton" class="btn btn-outline-danger mb-3 me-3"> <i
+                  class="fa-brands fa-twitter"></i></button>
+
+            </div>
+            <div class="d-flex ">
+              <button id="previousButton" class="btn btn-outline-danger mb-3 me-3"><i
+                  class="fa-solid fa-arrow-left"></i></button>
+              <button id="newQuoteButton" class="btn btn-outline-danger  mb-3"><i
+                  class="fa-solid fa-arrow-right"></i></button>
+
+            </div>
+          </div> -->
+
+          <div class=" d-flex mx-auto flex-sm-row justify-content-center flex-wrap">
+
+            <button id="previousButton" class="btn btn-outline-danger mb-3 me-3 order4"><i
+                class="fa-solid fa-arrow-left"></i></button>
+            <button id="copyButton" class="btn btn-outline-danger mb-3 me-3 order1"><i class="bi bi-copy"></i></button>
+            <button id="speechButton" class="btn btn-outline-danger mb-3 me-3 order2"><i
+                class="fa-solid fa-volume-high"></i></button>
+            <button id="tweetButton" class="btn btn-outline-danger mb-3 me-3 order3"> <i
                 class="fa-brands fa-twitter"></i></button>
-            <button onclick="generateQuote()" class="btn btn-outline-danger  mb-2">New Quote <i
+            <button id="newQuoteButton" class="btn btn-outline-danger  mb-3 order5"><i
                 class="fa-solid fa-arrow-right"></i></button>
+
           </div>
         </div>
 

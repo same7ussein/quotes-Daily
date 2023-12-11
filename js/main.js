@@ -1,5 +1,10 @@
 var quoteParag1 = document.getElementById("quote");
 var quoteParag2 = document.getElementById("author");
+var copyBtn = document.getElementById("copyButton");
+var speechbtn = document.getElementById("speechButton");
+var quoteBtn = document.getElementById("newQuoteButton");
+var previousBtn = document.getElementById("previousButton");
+var tweetBtn = document.getElementById("tweetButton");
 
 var prevRandomNumber = -1;
 var previousQuotes = [];
@@ -71,29 +76,40 @@ function generateQuote() {
     quote: quotes[randomNum].quote,
     quoteAuthor: quotes[randomNum].quoteAuthor,
   });
-  console.log(previousQuotes.length);
-      // disablebtn();
+  disablebtn();
 }
+
 function showPreviousQuote() {
   if (previousQuotes.length > 1) {
     display(previousQuotes[previousQuotes.length - 2]);
     previousQuotes.pop();
   }
-  // disablebtn();
+  disablebtn();
 }
-
-
 
 function display(quote) {
   quoteParag1.innerHTML =
-    '<i class="fa-solid fa-quote-left text-danger"></i>' +
-    " " +
-  quote.quote +
-    
-    " " +
-    '<i class="fa-solid fa-quote-right text-danger"></i>';
-  quoteParag2.innerHTML = `<i class="fa-solid fa-pen-nib"></i>`+quote.quoteAuthor;
+    `<i class="fa-solid fa-quote-left text-danger text-start"></i>` +
+    quote.quote +
+    `<i class="fa-solid fa-quote-right text-danger text-start"></i>`; 
+  quoteParag2.innerHTML = `<i class="fa-solid fa-pen-nib fs-6"></i>`+quote.quoteAuthor;
 }
+
+function disablebtn() {
+  if (previousQuotes.length == 0 || previousQuotes.length == 1) {
+    previousBtn.disabled = true;
+  } else {
+    previousBtn.disabled = false;
+  }
+
+    if (quoteParag1.innerText === "") {
+      tweetBtn.disabled = true;
+    } else {
+      tweetBtn.disabled = false;
+    }
+}
+
+disablebtn();
 
 function tweet() {
   var currentQuote = quoteParag1.innerText;
@@ -105,22 +121,36 @@ function tweet() {
   );
 }
 
-// function disablebtn() {
-//   var previousBtn = document.getElementById("previousButton");
-//   var tweetBtn = document.getElementById("tweetButton");
-//   if (previousQuotes.length == 0 || previousQuotes.length == 1) {
-//     previousBtn.disabled = true;
-//   } else {
-//     previousBtn.disabled = false;
-//   }
+function copyToClipboard() {
+  navigator.clipboard.writeText(quoteParag1.innerText);
+  copyBtn.classList.add("copied");
+  setTimeout(function () {
+    copyBtn.classList.remove("copied");
+  }, 500);
+}
 
-//     if (quoteParag1.innerText.trim() === "") {
-//       tweetBtn.disabled = true;
-//     } else {
-//       tweetBtn.disabled = false;
-//     }
-// }
-
-// disablebtn();
+function speakQuote() {
+  var utterance = new SpeechSynthesisUtterance(quoteParag1.innerText);
+  speechSynthesis.speak(utterance);
+}
 
 
+quoteBtn.addEventListener("click", ()=>{
+  generateQuote();
+})
+
+tweetBtn.addEventListener("click", () => {
+  tweet();
+});
+
+previousBtn.addEventListener("click", () => {
+  showPreviousQuote();
+});
+
+speechbtn.addEventListener("click", () => {
+  speakQuote();
+});
+
+copyBtn.addEventListener("click", () => {
+  copyToClipboard();
+});
