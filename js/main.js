@@ -8,6 +8,8 @@ var tweetBtn = document.getElementById("tweetButton");
 
 var prevRandomNumber = -1;
 var previousQuotes = [];
+var utterance = new SpeechSynthesisUtterance();
+
 var quotes = [
   {
     quote: "Be yourself; everyone else is already taken.",
@@ -91,8 +93,9 @@ function display(quote) {
   quoteParag1.innerHTML =
     `<i class="fa-solid fa-quote-left text-danger text-start"></i>` +
     quote.quote +
-    `<i class="fa-solid fa-quote-right text-danger text-start"></i>`; 
-  quoteParag2.innerHTML = `<i class="fa-solid fa-pen-nib fs-6"></i>`+quote.quoteAuthor;
+    `<i class="fa-solid fa-quote-right text-danger text-start"></i>`;
+  quoteParag2.innerHTML =
+    `<i class="fa-solid fa-pen-nib fs-6"></i>` + quote.quoteAuthor;
 }
 
 function disablebtn() {
@@ -102,11 +105,11 @@ function disablebtn() {
     previousBtn.disabled = false;
   }
 
-    if (quoteParag1.innerText === "") {
-      tweetBtn.disabled = true;
-    } else {
-      tweetBtn.disabled = false;
-    }
+  if (quoteParag1.innerText === "") {
+    tweetBtn.disabled = true;
+  } else {
+    tweetBtn.disabled = false;
+  }
 }
 
 disablebtn();
@@ -129,28 +132,21 @@ function copyToClipboard() {
   }, 500);
 }
 
-function speakQuote() {
-  var utterance = new SpeechSynthesisUtterance(quoteParag1.innerText);
+function speakVoice() {
+  utterance.voice = speechSynthesis.getVoices()[Math.floor(Math.random() * 3)];
+  utterance.text = quoteParag1.innerText;
   speechSynthesis.speak(utterance);
 }
 
+quoteBtn.addEventListener("click", generateQuote);
 
-quoteBtn.addEventListener("click", ()=>{
-  generateQuote();
-})
+tweetBtn.addEventListener("click", tweet);
 
-tweetBtn.addEventListener("click", () => {
-  tweet();
-});
+previousBtn.addEventListener("click", showPreviousQuote);
 
-previousBtn.addEventListener("click", () => {
-  showPreviousQuote();
-});
+speechbtn.addEventListener("click", speakVoice);
 
-speechbtn.addEventListener("click", () => {
-  speakQuote();
-});
+copyBtn.addEventListener("click", copyToClipboard);
 
-copyBtn.addEventListener("click", () => {
-  copyToClipboard();
-});
+
+
